@@ -1,0 +1,52 @@
+<! DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+function changeImg(){
+    document.getElementById('pic1').src ='http://localhost:4200/otherimg';
+}
+function backImg(){
+    document.getElementById('pic1').src ='http://localhost:4200/img';
+}
+function getContent(){
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:4200/content');
+    xhr.onload = function() {
+        if (this.status == 200) {
+            console.log(this.response);
+            var elem = document.createElement("p");
+            elem.innerText = this.response
+            document.body.appendChild(elem);
+        } else {
+            console.log("error " + this.status);
+        };
+    };
+    xhr.send();
+}
+function addScript(src) {
+    var elem = document.createElement("script");
+    elem.src = src;
+    document.head.appendChild(elem);
+}
+function onUserData(content){
+    var elem = document.createElement("h2");
+    elem.innerText = content
+    document.body.appendChild(elem);
+}
+function onUserDataConsole(content){
+    console.log(content)
+}
+</script>
+</head>
+<body>
+    <p><img id='pic1' src='http://localhost:4200/img' alt='foto'></p>
+    <input type='button' value='change img' onclick='changeImg()'><br>
+    <input type='button' value='back img' onclick='backImg()'><br>
+    <input type='button' value='get content' onclick='getContent()'><br>
+    <input type='button' value='add contentJS html' onclick="addScript('http://localhost:4200/contentJS?callback=onUserData')"><br>
+    <input type='button' value='add contentJS console' onclick="addScript('http://localhost:4200/contentJS?callback=onUserDataConsole')"><br>
+    <input type='button' value='add customer html' onclick="addScript('http://localhost:4200/customer/23?callback=onUserData')"><br>
+    <input type='button' value='add customer console' onclick="addScript('http://localhost:4200/customer/23?callback=onUserDataConsole')">
+</body>
+</html>
