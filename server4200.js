@@ -64,7 +64,6 @@ server.on('request', function(req, res){
     if(/^\/customer\/[0-9]+$/.test(urlParsed.pathname)){
         //эту БД мы заполняли на паре, так что она должна работать(у меня работает)
         const collection = server.collection;
-        if(err) return console.log(err);
         //поидее должны искать по id, но мы не добавляли id, поэтому age, но разница не большая, я думаю суть понятна
         collection.find({age: parseInt(urlParsed.pathname.substring(10), 10)}).toArray(function(err, results){
             res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
