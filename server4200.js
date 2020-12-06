@@ -69,9 +69,15 @@ server.on('request', function(req, res){
             res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
             res.setHeader("Access-Control-Allow-Credentials", "true");
             res.setHeader("Access-Control-Allow-Headers","Origin,Content-Type, X-Auth-Token, Authorization");
-            let result = 'Names: ';
-            for (const r of results){
-                result += r.name + ', ';
+            let result = '';
+            if (results.length !== 0){
+                result = 'Names: ';
+                for (const r of results){
+                    result += r.name + ', ';
+                }
+            }
+            else{
+                result = "Ничего не найдено.12"
             }
             res.end(urlParsed.query.callback + '("' + result.substring(0, result.length-2) + '")');
         });
